@@ -1,2 +1,100 @@
 Movie Database
 This is a basic node.js application that takes user requests and returns information about movies, actors, directors etc. 
+
+Endpoints:
+
+RETURN A LIST OF ALL MOVIES 
+    URL:                       /movies
+    HTTP Method:               GET
+    Request body data format:  none
+    Response body data format: A JSON object containing data about all movies
+
+RETURN DATA ABOUT A SINGLE MOVIE BY TITLE 
+    URL:                       /movies[title]
+    HTTP Method:               GET
+    Request body data format:  none
+    Response body data format: A JSON object containing data about a single movie containing a title, description, genre, director, image URL, about a
+                               single movie. Example:
+                               {
+                                title: Elf,
+                                description: Buddy the Elf heads to New York City to find his dad,
+                                genre: comedy,
+                                director: John Favereu,
+                                image url: insertUrlHere
+                               }
+
+RETURN DATA ABOUT A GENRE
+    URL:                       /genres[genreName]
+    HTTP Method:               GET
+    Request body data format:  none
+    Response body data format: A JSON object containing a name and description. Structured like: 
+                               {
+                                name: fantasy,
+                                description: Characterized by the presence of fantasitical worlds, magic, and often inspired by mythology and folklore.
+                               }
+
+RETURN DATA ABOUT A DIRECTOR
+    URL:                       /director[directorName]
+    HTTP Method:               GET
+    Request body data format:  none
+    Response body data format: A JSON object containing a director's name, bio, birth year, death year. Structured like: 
+                            {
+                                name: John Favereau,
+                                bio: John Favereau is an american filmmaker and actor known for such films as Elf, Iron Man, and Chef
+                            }
+
+ALLOW USER TO REGISTER
+    URL:                       /users
+    HTTP Method:               post
+    Request body data format:  A JSON object containing user name, username, array of favorite movies, user email. Structured like:
+                            {
+                                name: Peter Parker,
+                                username: Spiderman,
+                                favorites: 
+                                [
+                                    Iron Man,
+                                    Elf,
+                                    Arrival
+                                ],
+                                email: pParker@gmail.com
+                            }
+    Response body data format: A JSON object containing data about the user added. Structured like: 
+                            {
+                                name: Peter Parker,
+                                username: Spiderman,
+                                favorites: 
+                                [
+                                    Iron Man,
+                                    Elf,
+                                    Arrival
+                                ],
+                                email: pParker@gmail.com
+                            }
+
+ALLOW USER TO UPDATE THEIR USER INFO
+    URL:                       /users[user][username]
+    HTTP Method:               put
+    Request body data format:  A JSON object containing user name, username, array of favorite movies, user email. Structured like:
+                            {
+                                name: Peter Parker,
+                                username: Spiderman,
+                                favorites: 
+                                [
+                                    Iron Man,
+                                    Elf,
+                                    Arrival
+                                ],
+                                email: pParker@gmail.com
+                            }
+    Response body data format: A JSON object containing data about the user added. Structured like: 
+                            {
+                                name: Peter Parker,
+                                username: Spiderman,
+                                favorites: 
+                                [
+                                    Iron Man,
+                                    Elf,
+                                    Arrival
+                                ],
+                                email: pParker@gmail.com
+                            }
