@@ -63,7 +63,7 @@ let users = [
 
 
 //Create a new user
-app.post('users', (req, res) => {
+app.post('/users', (req, res) => {
     let newUser = req.body;
 
     if (newUser.name) {
@@ -76,7 +76,7 @@ app.post('users', (req, res) => {
 });
 
 //Update user username
-app.put('users/:id,', (req, res) => {
+app.put('/users/:id', (req, res) => {
     let { id } = req.params;
     let updatedUser = req.body;
 
@@ -88,11 +88,10 @@ app.put('users/:id,', (req, res) => {
     } else {
         res.status(400).send('no such user');
     }
-
 });
 
 //Add new movie to a user's favorite movies list
-app.post('users/:id/:movieTitle', (req, res) => {
+app.post('/users/:id/:movieTitle', (req, res) => {
     let { id, movieTitle } = req.params;
 
     let user = users.find(user => user.id == id);
@@ -107,7 +106,7 @@ app.post('users/:id/:movieTitle', (req, res) => {
 });
 
 //Remove movie from user's favoite movies list
-app.delete('users/:id/:movieTitle', (req, res) => {
+app.delete('/users/:id/:movieTitle', (req, res) => {
     let { id, movieTitle } = req.params;
 
     let user = users.find(user => user.id == id);
@@ -121,7 +120,7 @@ app.delete('users/:id/:movieTitle', (req, res) => {
 });
 
 //Remove user
-app.delete('users/:id', (req, res) => {
+app.delete('/users/:id', (req, res) => {
     let { id } = req.params;
 
     let user = users.find(user => user.id == id);
@@ -139,7 +138,7 @@ app.delete('users/:id', (req, res) => {
 
 //Send list of movie data to user
 app.get('/movies', (req, res) => {
-    res.status(200).res.json(movies);
+    res.status(200).json(movies);
 });
 
 //Send data of a single movie to user
@@ -148,7 +147,7 @@ app.get('/movies/:title', (req, res) => {
     let movie = movies.find( movie => movie.title === title);
 
     if (movie) {
-        res.status.json(movie);
+        res.status(200).json(movie);
     } else {
         res.status(400).send('no such movie')
     }
@@ -160,7 +159,7 @@ app.get('/movies/genre/:genreName', (req, res) => {
     let genre = movies.find( movie => movie.genre.name === genreName).genre;
 
     if (genre) {
-        res.status.json(genre);
+        res.status(200).json(genre);
     } else {
         res.status(400).send('no such genre')
     }
@@ -172,8 +171,10 @@ app.get('/movies/director/:directorName', (req, res) => {
     let director = movies.find( movie => movie.director.name === directorName).director;
 
     if (director) {
-        res.status.json(director);
+        res.status(200).json(director);
     } else {
         res.status(400).send('no such director')
     }
 });
+
+app.listen(8080, () => console.log('Listening on 8080'));
