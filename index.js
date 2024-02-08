@@ -162,7 +162,7 @@ app.get('/users', async (req, res) => {
 
   // Get a user by username
 app.get('/users/:Username', async (req, res) => {
-    await Users.findOne({ Username: req.params.Username })
+    await Users.findOne({ username: req.params.Username })
       .then((user) => {
         res.json(user);
       })
@@ -190,44 +190,56 @@ app.delete('/users/:Username', async (req, res) => {
 
 
 //Send list of movie data to user
-app.get('/movies', (req, res) => {
-    res.status(200).json(movies);
+                                // app.get('/movies', (req, res) => {
+                                //     res.status(200).json(movies);
+                                // });
+app.get('/movies', async (req, res) => {
+  await Movies.find()
+    .then((movies) => {
+      res.status(201).json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
-//Send data of a single movie to user
-app.get('/movies/:title', (req, res) => {
-    let { title } = req.params;
-    let movie = movies.find( movie => movie.title === title);
 
-    if (movie) {
-        res.status(200).json(movie);
-    } else {
-        res.status(400).send('no such movie')
-    }
+
+//Send data of a single movie to user
+app.get('/movies/:Title', async (req, res) => {
+  await Movies.findOne({ title: req.params.Title })
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 //Send data about the genre of a movie to the user
-app.get('/movies/genre/:genreName', (req, res) => {
-    let { genreName } = req.params;
-    let genre = movies.find( movie => movie.genre.name === genreName).genre;
-
-    if (genre) {
-        res.status(200).json(genre);
-    } else {
-        res.status(400).send('no such genre')
-    }
+app.get('/movies/:Genre', async (req, res) => {
+  await Movies.findOne({ "genre.name" : req.params.Genre })
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 //Send data about the director of a movie back to the user
-app.get('/movies/director/:directorName', (req, res) => {
-    let { directorName } = req.params;
-    let director = movies.find( movie => movie.director.name === directorName).director;
-
-    if (director) {
-        res.status(200).json(director);
-    } else {
-        res.status(400).send('no such director')
-    }
+app.get('/movies/:Director', async (req, res) => {
+  await Movies.find({ director : req.params.Director })
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 app.listen(8080, () => console.log('Listening on 8080'));
